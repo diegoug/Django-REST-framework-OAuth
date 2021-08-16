@@ -1,0 +1,34 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Django rest framework</title>
+    </head>
+    <body>
+        <div id="wrapper" class="wrapper">
+            <div class="item">
+                <form action="/accounts/login/" method="post">
+                    {% csrf_token %}
+                        <div id="tester" class="log-in">
+                            <div class="menu">
+                                <h1 class="sign">Log in</h1>
+                                <h2 class="user">User(E-mail)</h2> {{ form.username }}
+                                <h2 class="password">Password</h2> {{ form.password }}
+                            </div>
+                            <div class="menu-enter">
+                                <button id="Login" type="submit" >{% trans 'Enter' %}</button>
+                            </div>
+                            {% if request.message %}
+                            <p id='message'>{{request.message}}</p>
+                            {% elif form.errors %}
+                            <p id="error">{% trans 'Your username and/or password is incorrect.' %}</p>
+                            {% endif %}
+                        </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
