@@ -15,14 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path, include
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^$', auth_views.LoginView.as_view(
         template_name='authentication/login.html'), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(
         template_name='authentication/login.html'), name='logout'),
-
+    re_path(r'^library/', include('library.urls')),
 ]

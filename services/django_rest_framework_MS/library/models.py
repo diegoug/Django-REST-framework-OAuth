@@ -20,7 +20,7 @@ class Book(models.Model):
     title = models.CharField(
         _("title"), max_length=100)
     author = models.ForeignKey(
-        _('author'), on_delete=models.PROTECT)
+        _('author'), related_name='author', on_delete=models.PROTECT)
     publication_date = models.DateField(
         _('publication_date'))
     language =  models.CharField(
