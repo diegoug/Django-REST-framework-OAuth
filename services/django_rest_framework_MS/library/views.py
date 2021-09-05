@@ -1,9 +1,8 @@
+
 from rest_framework import serializers
 from rest_framework.mixins import ListModelMixin
 from rest_framework.viewsets import GenericViewSet
-from rest_framework import filters, permissions
-
-from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope
+from rest_framework import filters
 
 from .models import Book, Author
 
@@ -26,11 +25,14 @@ class BookListAPI(ListModelMixin, GenericViewSet):
     """
     View to list all books in the system.
     """
-    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = Book.objects.all()
     serializer_class = OutputBookSerializer
     search_fields = ['title', 'author__full_name']
     filter_backends = [filters.SearchFilter]
+
+    def get_template_names(self):
+        if self.action == 'list':
+            return ['book_list.html']
     
     def list(self, request, *args, **kwargs):
         """

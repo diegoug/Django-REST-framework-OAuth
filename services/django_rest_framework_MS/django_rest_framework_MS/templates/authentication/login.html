@@ -10,22 +10,17 @@
     <body>
         <div id="wrapper" class="wrapper">
             <div class="item">
-                <form action="/accounts/login/" method="post">
+                <form action="{% url 'login' %}" method="post">
                     {% csrf_token %}
                         <div id="tester" class="log-in">
                             <div class="menu">
                                 <h1 class="sign">Log in</h1>
-                                <h2 class="user">User(E-mail)</h2> {{ form.username }}
-                                <h2 class="password">Password</h2> {{ form.password }}
+                                <form action="." method="post" class="login_form">{% csrf_token %}
+                                    {{ form.as_p }}
+                                    <p class="submit"><button type="submit" name="submit" value="Login">Log in</button></p>
+                                    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+                                </form>
                             </div>
-                            <div class="menu-enter">
-                                <button id="Login" type="submit" >{% trans 'Enter' %}</button>
-                            </div>
-                            {% if request.message %}
-                            <p id='message'>{{request.message}}</p>
-                            {% elif form.errors %}
-                            <p id="error">{% trans 'Your username and/or password is incorrect.' %}</p>
-                            {% endif %}
                         </div>
                 </form>
             </div>

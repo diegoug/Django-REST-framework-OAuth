@@ -143,6 +143,12 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Login
+# https://docs.djangoproject.com/en/3.2/ref/settings/#auth
+
+LOGIN_REDIRECT_URL = '/library/v1/book/'
+LOGOUT_REDIRECT_URL = '/'
+
 # Django rest framework
 # https://www.django-rest-framework.org/api-guide/pagination/
 
@@ -150,9 +156,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10,
     'MAX_PAGE_SIZE': 100,
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-    ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     )
