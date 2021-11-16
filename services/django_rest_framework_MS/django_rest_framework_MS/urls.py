@@ -14,16 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, re_path, include
 from django.contrib.auth import views as auth_views
 
+from rest_framework.renderers import TemplateHTMLRenderer
+
+from .views import OAuthAplication
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url(r'^oauth/aplication/', 
+        OAuthAplication.as_view({
+            'get': 'retireve'
+        }, renderer_classes=[TemplateHTMLRenderer]), 
+        name='oauth_client_credentials'),
     url(r'^$', auth_views.LoginView.as_view(
         template_name='authentication/login.html'), name='login'),
-    url(r'^logout/$', auth_views.LogoutView.as_view(
-        template_name='authentication/login.html'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(
+         next_page=settings.LOGOUT_REDIRECT_URL), name='logout'),
     re_path(r'^library/', include('library.urls')),
 ]

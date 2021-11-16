@@ -7,7 +7,7 @@ services:
   django:
     image: diegoug/django-rest-framework-ms-dev
     container_name: django-rest-framework-ms-dev
-    #command: /bin/sh -c "cd /opt/app && python3 manage.py runserver 0.0.0.0:${DJANGO_REST_FRAMEWORK_MS_PORT}"
+    command: /bin/sh -c "cd /opt/app && python3 manage.py runserver 0.0.0.0:${DJANGO_REST_FRAMEWORK_MS_PORT}"
     volumes:
       - ../../services/django_rest_framework_MS:/opt/app
       - ${LOCAL_SSH}/.ssh/id_rsa.pub:/tmp/authorized_keys:ro
