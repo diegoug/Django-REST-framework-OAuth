@@ -142,9 +142,6 @@ Now we need run the next commands in order.
 
 `$ make create-network`
 
-**NOTE:** In case and error appears like 'docker   could not find plugin bridge in v1 plugin registry: plugin not found' the solution can be done by using the command:
-`docker network create --driver nat ntwk-mnto`
-
 ### Install dependencies
 
 `$ make build-development`
